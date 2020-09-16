@@ -1,0 +1,75 @@
+%NOME: Francisco Rosa Dias de Miranda
+%CÓDIGO: 4402962
+%CURSO: Bacharelado em Estatística
+%DISCIPLINA: Laboratório de Computação e Simulação
+
+\documentclass[a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{hyperref}
+\usepackage{mathtools}
+
+\begin{document}
+
+\title{MAP2212 \\ Laboratório de Computação e Simulação \\ EP5}
+\author{Francisco Rosa Dias de Miranda}
+
+\maketitle
+
+\section{Sobre o programa}
+
+O arquivo \textit{ep5.r} foi desenvolvido em \emph{R}, usando a
+bibliotecas \emph{nloptr}.
+
+\section{Full Bayesian Significance Test}
+
+O \textit{FBST} é um teste que pode ser realizado para, usando apenas a
+probabilidade posterior e valores observados, verificar se uma certa hipótese é
+válida ou não. O teste segue o princípio de Bayes e é ``Completo'' no sentido
+que apenas a distribuição \textit{a posteriori} é usada, e não precisamos de
+informação sobre a distribuição além disso.
+
+Neste EP, realizamos o teste descrito no enunciado, que consiste, em poucas
+palavras, em verificar se um certo fabricante de painéis de LED está sendo
+honesto quanto ao tempo médio de falha de seus produtos.
+
+O teste consiste em criar um modelo estatístico para representar a nossa
+variável de interesse (nesse caso, tempo de vida dos painéis de LED), e
+descobrir, a partir de um conjunto de informações observadas, possíveis
+par\^ametros para essa variável e ver se eles condizem com a informação
+publicada pelo fabricante.
+
+Para realizar o teste, precisamos achar o conjunto de par\^ametros \(\theta^*\)
+que tem probabilidade máxima, dada a restrição de nossa hipótese nula e os
+valores observados. Em outras palavras, achamos o valor mais provável para os
+par\^ametros dado o valor de \(\rho\) do fabricante. Para implementar isso,
+usamos a função \textit{minimize} da biblioteca \emph{SciPy}.
+
+Depois disso, precisamos verificar quantos valores dentro do espaço de
+possíveis par\^ametros são mais prováveis do que os valores que encontramos. Ou
+seja, achamos a quantidade de pontos mais prováveis do que o mais provável
+restrito à hipótese nula. A partir desse número, podemos dizer, com uma certa
+confiança, se o valor dado pelo fabricante está correto ou não. Quanto maior a
+probabilidade, maior a chance de que o fabricante mentiu, pois a chance de que
+o valor real não satisfaz a hipótese nula é maior. Para implementar essa parte,
+implementamos o algoritmo \textit{Metropolis-Hastings} de \textit{Markov Chain
+Monte Carlo}.
+
+\section{Conclusão}
+
+As estimativas de máxima verossimilhança para $\alpha$, $\beta$ e $\gamma$ obtidas foram, respectivamente, $<- 1.25, <- 3.28, <- 3.54$.
+
+O ponto de máximo encontrado foi 0.
+
+O teste completamente Bayesiano (FBST) é muito útil para verificar a validade
+de uma hipótese estatística, apesar de ser difícil de implementar ele por
+completo e sem erros. O uso de bibliotecas externas facilita bastante o
+desenvolvimento.
+
+A sua eficácia, porém, depende bastante do Kernel de Transição escolhido.
+Apesar disso, as vezes é a única opção factível em problemas com um alto número
+de dimensões.
+
+\end{document}
+
